@@ -1,0 +1,10 @@
+---
+vpc_id: vpc-05c24628c6b56152c
+subnet_id: subnet-046ac364180e5f5b5
+ec2_keypair: outline
+instance_count: 2
+db_subnets:
+  - subnet-046ac364180e5f5b5
+  - subnet-009896b4dd8c94762
+db_availability_zone: us-west-2b
+db_username: notejam
