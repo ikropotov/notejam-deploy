@@ -174,7 +174,7 @@ Resources:
       ContainerDefinitions:
         - Name: notejam
           Image: ikropotov/notejam
-          Memory: 1024
+          Memory: 450
           Environment:
             - Name: DJANGO_SETTINGS_MODULE
               Value: notejam.settings.release
@@ -196,7 +196,7 @@ Resources:
             - "--die-on-term"
         - Name: nginx
           Image: ikropotov/notejam-nginx
-          Memory: 512
+          Memory: 300
           PortMappings:
             - ContainerPort: "8000"
               HostPort: "8000"
@@ -213,7 +213,7 @@ Resources:
       ContainerDefinitions:
         - Name: notejam
           Image: ikropotov/notejam
-          Memory: 1024
+          Memory: 245
           Environment:
             - Name: DJANGO_SETTINGS_MODULE
               Value: notejam.settings.release
