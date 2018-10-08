@@ -47,7 +47,7 @@ Resources:
     Type: "AWS::AutoScaling::LaunchConfiguration"
     Properties:
       ImageId: ami-00430184c7bb49914
-      InstanceType: t2.micro
+      InstanceType: t3.small
       KeyName: { "Ref": "KeyPair" }
       IamInstanceProfile: { "Ref": "EC2InstanceProfile" }
       SecurityGroups:
@@ -103,6 +103,7 @@ Resources:
       MultiAZ: "false"
       AvailabilityZone: { "Ref": "DbAvailabilityZone" }
       AllocatedStorage: 8
+      BackupRetentionPeriod: 7
       StorageType: "gp2"
       DBInstanceClass: "db.t2.micro"
       DBName: "notejamdb"
@@ -173,7 +174,7 @@ Resources:
       ContainerDefinitions:
         - Name: notejam
           Image: ikropotov/notejam
-          Memory: 450
+          Memory: 1024
           Environment:
             - Name: DJANGO_SETTINGS_MODULE
               Value: notejam.settings.release
@@ -195,7 +196,7 @@ Resources:
             - "--die-on-term"
         - Name: nginx
           Image: ikropotov/notejam-nginx
-          Memory: 300
+          Memory: 512
           PortMappings:
             - ContainerPort: "8000"
               HostPort: "8000"
@@ -212,7 +213,7 @@ Resources:
       ContainerDefinitions:
         - Name: notejam
           Image: ikropotov/notejam
-          Memory: 245
+          Memory: 1024
           Environment:
             - Name: DJANGO_SETTINGS_MODULE
               Value: notejam.settings.release
