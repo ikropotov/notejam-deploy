@@ -96,6 +96,7 @@ Resources:
       Path: "/"
       ManagedPolicyArns: 
         - "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"     
+        - "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
   DbInstance:
     Type: "AWS::RDS::DBInstance"
     Properties:
@@ -194,6 +195,12 @@ Resources:
             - "--module notejam.wsgi"
             - "--master"
             - "--die-on-term"
+          LogConfiguration: # configures the logging driver
+            LogDriver: awslogs # use logging driver awslogs to forward log messages to CloudWatch Logs
+            Options:
+              'awslogs-region': !Ref 'AWS::Region' # the AWS region
+              'awslogs-group': notejam
+              'awslogs-stream-prefix': notejam
         - Name: nginx
           Image: ikropotov/notejam-nginx
           Memory: 300
@@ -203,6 +210,12 @@ Resources:
           MountPoints:
             - ContainerPath: /var/www/notejam
               SourceVolume: webroot
+          LogConfiguration: # configures the logging driver
+            LogDriver: awslogs # use logging driver awslogs to forward log messages to CloudWatch Logs
+            Options:
+              'awslogs-region': !Ref 'AWS::Region' # the AWS region
+              'awslogs-group': notejam
+              'awslogs-stream-prefix': notejam_nginx
       Volumes: 
         - Name: webroot
           Host: 
@@ -226,6 +239,12 @@ Resources:
           MountPoints:
             - ContainerPath: /var/www/notejam
               SourceVolume: webroot
+          LogConfiguration: # configures the logging driver
+            LogDriver: awslogs # use logging driver awslogs to forward log messages to CloudWatch Logs
+            Options:
+              'awslogs-region': !Ref 'AWS::Region' # the AWS region
+              'awslogs-group': notejamadhoc
+              'awslogs-stream-prefix': notejamadhoc
       Volumes:
         - Name: webroot
           Host: 
@@ -259,6 +278,7 @@ Resources:
       Path: "/"
       ManagedPolicyArns: 
         - arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceRole
+        - "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 
 # Stack Outputs
 Outputs:
